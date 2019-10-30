@@ -1,3 +1,4 @@
+const ErrorResponse = require("../utils/errorResponse");
 const Resource = require("../models/Resources");
 
 // @desc get all resources
@@ -23,11 +24,13 @@ exports.getResource = async (req, res, next) => {
   try {
     const resource = await Resource.findById(req.params.id);
     if (!resource) {
-      return res.status(400).json({ success: false });
+      return next(
+        new ErrorResponse(`Resource not found with id of ${req.params.id}`, 404)
+      );
     }
     res.status(200).json({ success: true, data: resource });
   } catch (error) {
-    res.status(400).json({ success: false, error: error.message });
+    next(error);
   }
 };
 
@@ -58,11 +61,13 @@ exports.updateResource = async (req, res, next) => {
       runValidators: true
     });
     if (!resource) {
-      return res.status(400).json({ success: false });
+      return next(
+        new ErrorResponse(`Resource not found with id of ${req.params.id}`, 404)
+      );
     }
     res.status(200).json({ success: true, data: resource });
   } catch (error) {
-    res.status(400).json({ success: false, error: error.message });
+    next(error);
   }
 };
 
@@ -74,10 +79,12 @@ exports.deleteResource = async (req, res, next) => {
   try {
     const resource = await Resource.findByIdAndDelete(req.params.id);
     if (!resource) {
-      return res.status(400).json({ success: false });
+      return next(
+        new ErrorResponse(`Resource not found with id of ${req.params.id}`, 404)
+      );
     }
     res.status(200).json({ success: true, data: {} });
   } catch (error) {
-    res.status(400).json({ success: false, error: error.message });
+    next(error);
   }
 };
