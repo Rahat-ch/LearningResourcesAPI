@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const slugify = require("slugify");
 
 const ResourceSchema = new mongoose.Schema({
   title: {
@@ -36,6 +37,12 @@ const ResourceSchema = new mongoose.Schema({
     type: Date,
     default: Date.now
   }
+});
+
+//create resource slug from title
+ResourceSchema.pre("save", function(next) {
+  this.slug = `${this.category}/${slugify(this.title, { lower: true })}`;
+  next();
 });
 
 module.exports = mongoose.model("resources", ResourceSchema);
