@@ -4,7 +4,6 @@ const Resource = require("../models/Resources");
 
 // @desc get all resources
 // @route GET /api/v1/resources
-// @access Public
 
 exports.getResources = asyncHandler(async (req, res, next) => {
   const resources = await Resource.find();
@@ -15,7 +14,6 @@ exports.getResources = asyncHandler(async (req, res, next) => {
 
 // @desc get single resource
 // @route GET /api/v1/resources/:id
-// @access Public
 
 exports.getResource = asyncHandler(async (req, res, next) => {
   const resource = await Resource.findById(req.params.id);
@@ -29,7 +27,6 @@ exports.getResource = asyncHandler(async (req, res, next) => {
 
 // @desc create new resource
 // @route POST /api/v1/resources
-// @access Private
 
 exports.createResource = asyncHandler(async (req, res, next) => {
   const resource = await Resource.create(req.body);
@@ -41,7 +38,6 @@ exports.createResource = asyncHandler(async (req, res, next) => {
 
 // @desc update resource
 // @route PUT /api/v1/resources/:id
-// @access Private
 
 exports.updateResource = asyncHandler(async (req, res, next) => {
   const resource = await Resource.findByIdAndUpdate(req.params.id, req.body, {
@@ -58,7 +54,6 @@ exports.updateResource = asyncHandler(async (req, res, next) => {
 
 // @desc delete resource
 // @route DELETE /api/v1/resources/:id
-// @access Private
 
 exports.deleteResource = asyncHandler(async (req, res, next) => {
   const resource = await Resource.findByIdAndDelete(req.params.id);
