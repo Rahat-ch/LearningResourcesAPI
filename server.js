@@ -1,6 +1,7 @@
 const express = require("express");
 const dotenv = require("dotenv");
 const morgan = require("morgan");
+const cors = require("cors")
 const errorHandler = require("./middleware/error");
 const connectDB = require("./config/db");
 
@@ -14,6 +15,9 @@ connectDB();
 const resources = require("./routes/resources");
 
 const app = express();
+
+//prevent cors errors need to adjust after production is deployed
+app.use(cors());
 
 //Body Parser
 app.use(express.json());
